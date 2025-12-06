@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Capsule Chat Interface</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
     body {
       background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
@@ -90,6 +91,60 @@
     }
     .message-content {
       font-size: 1rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .message-content h1, .message-content h2, .message-content h3, .message-content h4, .message-content h5, .message-content h6 {
+      margin: 10px 0 5px 0;
+      color: rgba(255,255,255,0.9);
+    }
+    .message-content p {
+      margin: 8px 0;
+    }
+    .message-content ul, .message-content ol {
+      margin: 8px 0;
+      padding-left: 20px;
+    }
+    .message-content li {
+      margin: 4px 0;
+    }
+    .message-content code {
+      background: rgba(0,0,0,0.3);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+    }
+    .message-content pre {
+      background: rgba(0,0,0,0.3);
+      padding: 12px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 10px 0;
+    }
+    .message-content pre code {
+      background: none;
+      padding: 0;
+    }
+    .message-content blockquote {
+      border-left: 3px solid rgba(255,255,255,0.5);
+      padding-left: 12px;
+      margin: 10px 0;
+      color: rgba(255,255,255,0.8);
+    }
+    .message-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+    }
+    .message-content th, .message-content td {
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 8px;
+      text-align: left;
+    }
+    .message-content th {
+      background: rgba(0,0,0,0.2);
     }
     .typing-indicator {
       display: none;
@@ -227,10 +282,20 @@
       <h1><i class="fas fa-robot"></i> AI Assistant</h1>
       <p>Powered by Capsule Backend</p>
       <select id="model-select">
+        <option value="gemma3:27b-cloud">gemma3:27b-cloud</option>
+        <option value="qwen3-vl:235b-cloud">qwen3-vl:235b-cloud</option>
+        <option value="qwen3-vl:8b">qwen3-vl:8b</option>
+        <option value="glm-4.6:cloud">glm-4.6:cloud</option>
+        <option value="deepseek-ocr:3b">deepseek-ocr:3b</option>
+        <option value="minimax-m2:cloud">minimax-m2:cloud</option>
+        <option value="cogito-2.1:671b-cloud">cogito-2.1:671b-cloud</option>
+        <option value="kimi-k2-thinking:cloud">kimi-k2-thinking:cloud</option>
+        <option value="alibayram/hunyuan:4b">alibayram/hunyuan:4b</option>
         <option value="deepseek-r1:1.5b">deepseek-r1:1.5b</option>
         <option value="mistral-large-3:675b-cloud">mistral-large-3:675b-cloud</option>
         <option value="qwen3:8b">qwen3:8b</option>
         <option value="gemma3:4b">gemma3:4b</option>
+        <option value="nemotron-mini:4b">nemotron-mini:4b</option>
         <option value="deepseek-r1:8b">deepseek-r1:8b</option>
         <option value="ministral-3:8b">ministral-3:8b</option>
         <option value="second_constantine/gpt-oss-u:20b">second_constantine/gpt-oss-u:20b</option>
@@ -294,6 +359,17 @@
       const synth = window.speechSynthesis;
       let isSpeaking = false;
       
+      // Configure marked.js for safe rendering
+      marked.setOptions({
+        breaks: true, // Convert '\n' in text into <br>
+        gfm: true, // Enable GitHub Flavored Markdown
+        sanitize: false, // Don't sanitize HTML (we trust our backend)
+        highlight: function(code, lang) {
+          // Simple syntax highlighting fallback
+          return `<code class="language-${lang}">${code}</code>`;
+        }
+      });
+      
       // Store chat messages for saving
       let chatHistory = [];
 
@@ -316,7 +392,14 @@
         // Create message content
         const messageContent = document.createElement('div');
         messageContent.classList.add('message-content');
-        messageContent.textContent = text;
+        
+        if (isUser) {
+          // For user messages, use plain text (no Markdown rendering)
+          messageContent.textContent = text;
+        } else {
+          // For AI messages, render Markdown
+          messageContent.innerHTML = marked.parse(text);
+        }
         
         // Append header and content to message
         messageDiv.appendChild(messageHeader);
@@ -337,10 +420,20 @@
       // Helper function to get a simplified display name for models
       function getModelDisplayName(fullModelName) {
         const modelMap = {
+          'gemma3:27b-cloud': 'Gemma3 27B Cloud',
+          'qwen3-vl:235b-cloud': 'Qwen3 VL 235B Cloud',
+          'qwen3-vl:8b': 'Qwen3 VL 8B',
+          'glm-4.6:cloud': 'GLM 4.6 Cloud',
+          'deepseek-ocr:3b': 'DeepSeek OCR 3B',
+          'minimax-m2:cloud': 'Minimax M2 Cloud',
+          'cogito-2.1:671b-cloud': 'Cogito 2.1 671B Cloud',
+          'kimi-k2-thinking:cloud': 'Kimi K2 Thinking Cloud',
+          'alibayram/hunyuan:4b': 'Hunyuan 4B',
           'deepseek-r1:1.5b': 'DeepSeek R1 1.5B',
           'mistral-large-3:675b-cloud': 'Mistral Large 675B',
           'qwen3:8b': 'Qwen3 8B',
           'gemma3:4b': 'Gemma3 4B',
+          'nemotron-mini:4b': 'Nemotron Mini 4B',
           'deepseek-r1:8b': 'DeepSeek R1 8B',
           'ministral-3:8b': 'Ministral 3 8B',
           'second_constantine/gpt-oss-u:20b': 'GPT-OSS 20B',
@@ -473,7 +566,10 @@
         // Stop any ongoing speech
         synth.cancel();
         
-        const utterance = new SpeechSynthesisUtterance(text);
+        // Strip markdown for speech (remove formatting)
+        const plainText = text.replace(/[#*`_\[\]\(\)]/g, '');
+        
+        const utterance = new SpeechSynthesisUtterance(plainText);
         utterance.rate = 1;
         utterance.pitch = 1;
         utterance.volume = 1;
@@ -583,7 +679,7 @@
             
             const messageContent = document.createElement('div');
             messageContent.classList.add('message-content');
-            messageContent.textContent = msg.text;
+            messageContent.innerHTML = marked.parse(msg.text);
             messageDiv.appendChild(messageHeader);
             messageDiv.appendChild(messageContent);
           }
@@ -637,9 +733,14 @@
         } else {
           const aiMessages = document.querySelectorAll('.ai-message');
           if (aiMessages.length > 0) {
-            const lastMessage = aiMessages[aiMessages.length - 1].querySelector('.message-content').textContent;
-            if (lastMessage.trim() !== '') {
-              speakText(lastMessage);
+            const lastMessage = aiMessages[aiMessages.length - 1];
+            // Get the raw text from the message content (before Markdown rendering)
+            const lastMessageIndex = chatHistory.length - 1;
+            if (lastMessageIndex >= 0 && !chatHistory[lastMessageIndex].isUser) {
+              const text = chatHistory[lastMessageIndex].text;
+              if (text.trim() !== '') {
+                speakText(text);
+              }
             }
           }
         }
