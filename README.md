@@ -570,29 +570,48 @@ full frontend html:
       <h1><i class="fas fa-robot"></i> AI Assistant</h1>
       <p>Powered by Capsule Backend</p>
       <select id="model-select">
-        <option value="gemma3:27b-cloud">gemma3:27b-cloud</option>
-        <option value="qwen3-vl:235b-cloud">qwen3-vl:235b-cloud</option>
-        <option value="qwen3-vl:8b">qwen3-vl:8b</option>
-        <option value="glm-4.6:cloud">glm-4.6:cloud</option>
-        <option value="deepseek-ocr:3b">deepseek-ocr:3b</option>
-        <option value="minimax-m2:cloud">minimax-m2:cloud</option>
-        <option value="cogito-2.1:671b-cloud">cogito-2.1:671b-cloud</option>
-        <option value="kimi-k2-thinking:cloud">kimi-k2-thinking:cloud</option>
-        <option value="alibayram/hunyuan:4b">alibayram/hunyuan:4b</option>
-        <option value="deepseek-r1:1.5b">deepseek-r1:1.5b</option>
-        <option value="mistral-large-3:675b-cloud">mistral-large-3:675b-cloud</option>
-        <option value="qwen3:8b">qwen3:8b</option>
-        <option value="gemma3:4b">gemma3:4b</option>
-        <option value="nemotron-mini:4b">nemotron-mini:4b</option>
-        <option value="deepseek-r1:8b">deepseek-r1:8b</option>
-        <option value="ministral-3:8b">ministral-3:8b</option>
-        <option value="second_constantine/gpt-oss-u:20b">second_constantine/gpt-oss-u:20b</option>
-        <option value="gpt-oss:20b">gpt-oss:20b</option>
-        <option value="llama3.2-vision:11b">llama3.2-vision:11b</option>
-        <option value="gemini-3-pro-preview:latest">gemini-3-pro-preview:latest</option>
-        <option value="deepseek-v3.1:671b-cloud">deepseek-v3.1:671b-cloud</option>
-        <option value="gpt-oss:120b-cloud">gpt-oss:120b-cloud</option>
-        <option value="qwen3-coder:480b-cloud">qwen3-coder:480b-cloud</option>
+      <option value="driaforall/tiny-agent-a:0.5b">driaforall/tiny-agent-a:0.5b</option>
+      <option value="hhao/qwen2.5-coder-tools:0.5b">hhao/qwen2.5-coder-tools:0.5b</option>
+      <option value="qwen:0.5b">qwen:0.5b</option>
+      <option value="tinydolphin:1.1b">tinydolphin:1.1b</option>
+      <option value="tinyllama:1.1b">tinyllama:1.1b</option>
+      <option value="deepseek-r1:1.5b">deepseek-r1:1.5b</option>
+      <option value="nehcgs/Arch-Agent:1.5b">nehcgs/Arch-Agent:1.5b</option>
+      <option value="starcoder:3b">starcoder:3b</option>
+      <option value="deepseek-ocr:3b">deepseek-ocr:3b</option>
+      <option value="gemma3:4b">gemma3:4b</option>
+      <option value="alibayram/hunyuan:4b">alibayram/hunyuan:4b</option>
+      <option value="nemotron-mini:4b">nemotron-mini:4b</option>
+      <option value="codellama:7b">codellama:7b</option>
+      <option value="dolphincoder:7b">dolphincoder:7b</option>
+      <option value="codegemma:7b">codegemma:7b</option>
+      <option value="wizardlm2:7b">wizardlm2:7b</option>
+      <option value="qwen2.5-coder:7b">qwen2.5-coder:7b</option>
+      <option value="opencoder:8b">opencoder:8b</option>
+      <option value="llama3-chatqa:8b">llama3-chatqa:8b</option>
+      <option value="sylink/sylink:8b">sylink/sylink:8b</option>
+      <option value="qwen3:8b">qwen3:8b</option>
+      <option value="deepseek-r1:8b">deepseek-r1:8b</option>
+      <option value="ministral-3:8b">ministral-3:8b</option>
+      <option value="qwen3-vl:8b">qwen3-vl:8b</option>
+      <option value="koesn/llama3-openbiollm-8b:q6_K">koesn/llama3-openbiollm-8b:q6_K</option>
+      <option value="llama3.2-vision:11b">llama3.2-vision:11b</option>
+      <option value="ishumilin/deepseek-r1-coder-tools:14b">ishumilin/deepseek-r1-coder-tools:14b</option>
+      <option value="deepseek-coder-v2:16b">deepseek-coder-v2:16b</option>
+      <option value="second_constantine/gpt-oss-u:20b">second_constantine/gpt-oss-u:20b</option>
+      <option value="gpt-oss:20b">gpt-oss:20b</option>
+      <option value="ALIENTELLIGENCE/multiagentv2:latest">ALIENTELLIGENCE/multiagentv2:latest</option>
+      <option value="gemma3:27b-cloud">gemma3:27b-cloud</option>
+      <option value="qwen3-vl:235b-cloud">qwen3-vl:235b-cloud</option>
+      <option value="glm-4.6:cloud">glm-4.6:cloud</option>
+      <option value="minimax-m2:cloud">minimax-m2:cloud</option>
+      <option value="gemini-3-pro-preview:latest">gemini-3-pro-preview:latest</option>
+      <option value="gpt-oss:120b-cloud">gpt-oss:120b-cloud</option>
+      <option value="qwen3-coder:480b-cloud">qwen3-coder:480b-cloud</option>
+      <option value="cogito-2.1:671b-cloud">cogito-2.1:671b-cloud</option>
+      <option value="deepseek-v3.1:671b-cloud">deepseek-v3.1:671b-cloud</option>
+      <option value="mistral-large-3:675b-cloud">mistral-large-3:675b-cloud</option>
+      <option value="kimi-k2-thinking:cloud">kimi-k2-thinking:cloud</option>
       </select>
       <button class="history-button" id="history-button"><i class="fas fa-history"></i></button>
     </div>
@@ -1077,6 +1096,7 @@ full frontend html:
   </script>
 </body>
 </html>
+
 
 
 install script:
